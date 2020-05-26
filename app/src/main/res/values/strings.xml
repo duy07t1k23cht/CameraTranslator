@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Camera Translator</string>
+    <string name="text">Text</string>
+    <string name="object">Object</string>
+    <string name="object_detection">Nhận diện vật thể</string>
+    <string name="all_object_detected">Tất cả vật thể:</string>
+    <string name="example">Ví dụ</string>
+    <string name="something_went_wrong">Ôi không! Có lỗi xảy ra.</string>
+    <string name="select_a_photo">Chọn một hình ảnh</string>
+    <string name="setting">Cài đặt ngôn ngữ</string>
+</resources>
