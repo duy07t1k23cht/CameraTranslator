@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/grayBackground"
     android:orientation="vertical"
     tools:context=".ui.setting.SettingActivity">
 
@@ -20,6 +21,9 @@
     <ListView
         android:id="@+id/list_languages"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="@color/colorWhite"
+        android:padding="8dp" />
 
 </LinearLayout>
