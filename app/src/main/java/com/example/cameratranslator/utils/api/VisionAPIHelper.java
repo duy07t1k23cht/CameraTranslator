@@ -1,7 +1,6 @@
-package com.example.cameratranslator.utils;
+package com.example.cameratranslator.utils.api;
 
 import android.graphics.Bitmap;
-import android.util.Log;
 
 import com.example.cameratranslator.model.LocalizedObjectAnnotation;
 import com.example.cameratranslator.model.TextAnnotations;
@@ -31,7 +30,7 @@ import static com.example.cameratranslator.utils.BitmapUtils.getStringBase64;
 /**
  * Created by Duy M. Nguyen on 5/14/2020.
  */
-public class ImageDetectionHelper {
+public class VisionAPIHelper {
 
     private final static String URL_REQUEST = "https://content-vision.googleapis.com/v1/images:annotate?.xgafv=1&alt=json&prettyPrint=true&key=AIzaSyCghTC9CkWTzu7NbFIb8lWW5f-aAWaPfO0&%24.xgafv=1";
 
@@ -57,7 +56,7 @@ public class ImageDetectionHelper {
             OkHttpClient client = new OkHttpClient();
             RequestBody body = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), jsonBody);
             Request request = new Request.Builder()
-                    .url(ImageDetectionHelper.URL_REQUEST)
+                    .url(VisionAPIHelper.URL_REQUEST)
 //                    .addHeader("Content-Type", "application/json")
 //                    .addHeader(
 //                            "Referer",
@@ -134,7 +133,7 @@ public class ImageDetectionHelper {
             OkHttpClient client = new OkHttpClient();
             RequestBody body = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), jsonBody);
             Request request = new Request.Builder()
-                    .url(ImageDetectionHelper.URL_REQUEST)
+                    .url(VisionAPIHelper.URL_REQUEST)
 //                    .addHeader("Content-Type", "application/json")
 //                    .addHeader(
 //                            "Referer",

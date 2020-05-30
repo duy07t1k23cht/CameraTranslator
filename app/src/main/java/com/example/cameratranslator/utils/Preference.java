@@ -6,9 +6,9 @@ import android.content.SharedPreferences;
 /**
  * Created by Duy M. Nguyen on 5/26/2020.
  */
-public class Pref {
+public class Preference {
 
-    public class Key {
+    public static class Key {
         private static final String LANGUAGE = "Language";
     }
 
@@ -16,10 +16,11 @@ public class Pref {
 
     private SharedPreferences sharedPreferences;
 
-    public Pref(Context context) {
+    public Preference(Context context) {
         this.sharedPreferences = context.getSharedPreferences(APP_PREF_NAME, Context.MODE_PRIVATE);
     }
 
+    // Get and set Language
     public void putLanguage(String language) {
         sharedPreferences
                 .edit()

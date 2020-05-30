@@ -3,16 +3,13 @@ package com.example.cameratranslator.ui.object;
 import android.content.Context;
 import android.content.Intent;
 import android.media.AudioManager;
-import android.media.AudioTrack;
 import android.media.MediaPlayer;
-import android.util.Log;
 
 import com.example.cameratranslator.base.BasePresenter;
-import com.example.cameratranslator.callback.StringCallback;
 import com.example.cameratranslator.model.LocalizedObjectAnnotation;
 import com.example.cameratranslator.utils.BitmapUtils;
 import com.example.cameratranslator.utils.LanguageUtils;
-import com.example.cameratranslator.utils.Pref;
+import com.example.cameratranslator.utils.Preference;
 
 import java.io.IOException;
 import java.util.List;
@@ -26,7 +23,7 @@ public class ObjectDetectionPresenter extends BasePresenter<ObjectDetectionContr
 
     private ObjectDetectionInteractor interactor = new ObjectDetectionInteractor();
 
-    private Pref pref;
+    private Preference pref;
 
     private String imagePath = null;
     private Context context;
@@ -36,7 +33,7 @@ public class ObjectDetectionPresenter extends BasePresenter<ObjectDetectionContr
 
     @Override
     public void getPreference(Context context) {
-        pref = new Pref(context);
+        pref = new Preference(context);
     }
 
     @Override

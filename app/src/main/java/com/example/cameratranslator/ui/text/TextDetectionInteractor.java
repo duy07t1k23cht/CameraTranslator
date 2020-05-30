@@ -6,7 +6,7 @@ import com.example.cameratranslator.callback.ListCallback;
 import com.example.cameratranslator.callback.StringCallback;
 import com.example.cameratranslator.model.TextAnnotations;
 import com.example.cameratranslator.utils.BitmapUtils;
-import com.example.cameratranslator.utils.ImageDetectionHelper;
+import com.example.cameratranslator.utils.api.VisionAPIHelper;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
@@ -25,7 +25,7 @@ public class TextDetectionInteractor implements TextDetectionContract.Interactor
         BitmapUtils.compressImage(
                 context,
                 imagePath,
-                bitmap -> ImageDetectionHelper
+                bitmap -> VisionAPIHelper
                         .getTextData(bitmap)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())

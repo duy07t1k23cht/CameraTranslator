@@ -1,4 +1,4 @@
-package com.example.cameratranslator.utils;
+package com.example.cameratranslator.utils.api;
 
 import com.example.cameratranslator.model.LocalizedObjectAnnotation;
 import com.example.cameratranslator.model.Translation;
@@ -25,7 +25,7 @@ import okhttp3.logging.HttpLoggingInterceptor;
 /**
  * Created by Duy M. Nguyen on 5/20/2020.
  */
-public class TranslateHelper {
+public class TranslationAPIHelper {
 
     private final static String URL_REQUEST = "https://translation.googleapis.com/language/translate/v2";
     private final static String API_KEY = "AIzaSyBFx7FJJM7Jo9Bzv2qH7ZX1_013NeGWPRQ";

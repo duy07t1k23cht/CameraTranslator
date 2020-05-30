@@ -7,15 +7,13 @@ import com.example.cameratranslator.callback.StringCallback;
 import com.example.cameratranslator.model.LocalizedObjectAnnotation;
 import com.example.cameratranslator.model.Translation;
 import com.example.cameratranslator.utils.BitmapUtils;
-import com.example.cameratranslator.utils.GetAudioHelper;
-import com.example.cameratranslator.utils.ImageDetectionHelper;
-import com.example.cameratranslator.utils.TranslateHelper;
+import com.example.cameratranslator.utils.api.TextToSpeechAPIHelper;
+import com.example.cameratranslator.utils.api.VisionAPIHelper;
+import com.example.cameratranslator.utils.api.TranslationAPIHelper;
 
 import java.util.List;
 
-import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 /**
@@ -32,7 +30,7 @@ public class ObjectDetectionInteractor implements ObjectDetectionContract.Intera
         BitmapUtils.compressImage(
                 context,
                 imagePath,
-                bitmap -> ImageDetectionHelper
+                bitmap -> VisionAPIHelper
                         .getObjectData(bitmap)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
@@ -48,7 +46,7 @@ public class ObjectDetectionInteractor implements ObjectDetectionContract.Intera
             List<LocalizedObjectAnnotation> localizedObjectAnnotations,
             String targetLanguageCode,
             ListCallback<Translation> onPost) {
-        TranslateHelper.translate(localizedObjectAnnotations, targetLanguageCode)
+        TranslationAPIHelper.translate(localizedObjectAnnotations, targetLanguageCode)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(onPost::execute)
@@ -60,7 +58,7 @@ public class ObjectDetectionInteractor implements ObjectDetectionContract.Intera
             LocalizedObjectAnnotation localizedObjectAnnotation,
             String targetLanguageCode,
             StringCallback onPost) {
-        GetAudioHelper.getAudio(localizedObjectAnnotation, targetLanguageCode)
+        TextToSpeechAPIHelper.getAudio(localizedObjectAnnotation, targetLanguageCode)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(onPost::execute)

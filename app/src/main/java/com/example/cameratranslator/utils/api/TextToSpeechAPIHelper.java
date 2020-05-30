@@ -1,4 +1,4 @@
-package com.example.cameratranslator.utils;
+package com.example.cameratranslator.utils.api;
 
 import com.example.cameratranslator.model.LocalizedObjectAnnotation;
 
@@ -19,7 +19,7 @@ import okhttp3.logging.HttpLoggingInterceptor;
 /**
  * Created by Duy M. Nguyen on 5/25/2020.
  */
-public class GetAudioHelper {
+public class TextToSpeechAPIHelper {
     private final static String API_KEY = "AIzaSyBFx7FJJM7Jo9Bzv2qH7ZX1_013NeGWPRQ";
     private final static String URL_REQUEST = "https://texttospeech.googleapis.com/v1/text:synthesize?key=" + API_KEY;
 

@@ -1,13 +1,9 @@
 package com.example.cameratranslator.ui.setting;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 
 import com.example.cameratranslator.base.BasePresenter;
-import com.example.cameratranslator.utils.Pref;
-
-import java.util.HashMap;
-import java.util.Map;
+import com.example.cameratranslator.utils.Preference;
 
 import static com.example.cameratranslator.utils.LanguageUtils.languages;
 
@@ -16,11 +12,11 @@ import static com.example.cameratranslator.utils.LanguageUtils.languages;
  */
 public class SettingPresenter extends BasePresenter<SettingContract.View> implements SettingContract.Presenter {
 
-    Pref pref;
+    Preference pref;
 
     @Override
     public void getPreference(Context context) {
-        pref = new Pref(context);
+        pref = new Preference(context);
     }
 
     @Override
