@@ -1,6 +1,7 @@
 package com.example.cameratranslator.ui.pickimage;
 
 import android.app.Application;
+import android.util.Log;
 
 import com.example.cameratranslator.base.BasePresenter;
 import com.example.cameratranslator.utils.BitmapUtils;

@@ -1,6 +1,8 @@
 package com.example.cameratranslator.ui.pickimage;
 
 import android.app.Activity;
+import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,8 +14,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.cameratranslator.R;
 import com.example.cameratranslator.navigation.Navigation;
+import com.example.cameratranslator.utils.BitmapUtils;
 
 import java.io.File;
+import java.io.IOException;
+import java.net.URI;
 import java.util.ArrayList;
 
 /**
@@ -50,7 +55,7 @@ public class ItemImageAdapter extends RecyclerView.Adapter<ItemImageAdapter.View
         return imagePaths.size();
     }
 
-    static class ViewHolder extends RecyclerView.ViewHolder {
+    class ViewHolder extends RecyclerView.ViewHolder {
 
         private ImageView imageView;
 
@@ -62,7 +67,7 @@ public class ItemImageAdapter extends RecyclerView.Adapter<ItemImageAdapter.View
 
         void setImageData(String imagePath) {
             Glide
-                    .with(imageView)
+                    .with(activity)
                     .load(new File(imagePath))
                     .into(imageView);
         }

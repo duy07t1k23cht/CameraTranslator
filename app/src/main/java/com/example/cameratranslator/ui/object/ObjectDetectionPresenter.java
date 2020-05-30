@@ -67,7 +67,6 @@ public class ObjectDetectionPresenter extends BasePresenter<ObjectDetectionContr
                 context,
                 imagePath,
                 listLabelAnnotations -> {
-                    Log.d("__XX__", "interactor.getObjectData()");
                     localizedObjectAnnotations = listLabelAnnotations;
                     interactor.getTranslateData(
                             localizedObjectAnnotations,
@@ -83,7 +82,6 @@ public class ObjectDetectionPresenter extends BasePresenter<ObjectDetectionContr
                             });
                 },
                 error -> {
-                    Log.d("__RESSULT", "Error: " + error);
                     mView.displayError("Error: " + error);
                     mView.dismissLoading();
                 }
@@ -113,7 +111,6 @@ public class ObjectDetectionPresenter extends BasePresenter<ObjectDetectionContr
                     objectAnnotation,
                     LanguageUtils.languageCode.get(pref.getLanguage()),
                     string -> {
-                        Log.d("__AUDIO", string);
                         objectAnnotation.setAudioContent(string);
                         objectAnnotation.setCurrentLanguageCode(LanguageUtils.languageCode.get(pref.getLanguage()));
 
@@ -123,19 +120,16 @@ public class ObjectDetectionPresenter extends BasePresenter<ObjectDetectionContr
                             mediaPlayer.setDataSource(audioUrl);
                             mediaPlayer.prepareAsync();
                             mediaPlayer.setOnPreparedListener(mp -> {
-                                Log.d("__AUDIO", "mediaPlayer onPrepared");
                                 mView.showLayoutIsSpeaking();
                                 mp.start();
                             });
                             mediaPlayer.setOnCompletionListener(mp -> {
-                                Log.d("__AUDIO", "mediaPlayer onCompletion");
                                 mView.refreshLayoutSpeak();
                                 mp.stop();
                                 mp.release();
                             });
                             mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
                         } catch (IOException e) {
-                            Log.d("__AUDIO", "Crash: " + e.getMessage());
                             mView.refreshLayoutSpeak();
                             e.printStackTrace();
                         }

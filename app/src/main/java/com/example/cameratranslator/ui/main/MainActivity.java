@@ -8,6 +8,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.graphics.Typeface;
 import android.net.Uri;
+import android.util.Log;
 import android.util.Size;
 import android.view.Surface;
 import android.view.TextureView;
@@ -42,7 +43,7 @@ import static com.example.cameratranslator.utils.ViewUtils.toast;
 public class MainActivity extends BaseActivity<MainPresenter> implements MainContract.View, View.OnClickListener {
 
     private final static int ACCESS_CAMERA_REQ = 101;
-    private final static int READ_STORAGE_REQ = 432;
+    private final static int READ_WRITE_STORATE_REQ = 432;
 
     private String[] CAMERA_REQUIRED_PERMISSIONS = new String[]{
             Manifest.permission.CAMERA,
@@ -50,6 +51,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 
     private String[] PICK_IMAGE_REQUIRED_PERMISSIONS = new String[]{
             Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE,
     };
 
     private TextureView viewFinder;
@@ -264,7 +266,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         ActivityCompat.requestPermissions(
                 MainActivity.this,
                 PICK_IMAGE_REQUIRED_PERMISSIONS,
-                READ_STORAGE_REQ
+                READ_WRITE_STORATE_REQ
         );
     }
 
@@ -285,15 +287,16 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
             }
         }
 
-        if (requestCode == READ_STORAGE_REQ) {
+        if (requestCode == READ_WRITE_STORATE_REQ) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 //                Navigation.toPickImageFromGalleryActivity(this, MainContract.PICK_IMG_REQ);
-                Navigation.toPickImageActivity(this);
+                if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED &&
+                        ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED)
+                    Navigation.toPickImageActivity(this);
+                else
+                    toast(this, "Permission denied 2");
             } else {
-                toast(
-                        this,
-                        "Permission denied"
-                );
+                toast(this, "Permission denied xxx");
             }
         }
     }

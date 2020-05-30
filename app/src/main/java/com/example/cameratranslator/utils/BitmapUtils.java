@@ -10,6 +10,7 @@ import android.media.ExifInterface;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.util.Base64;
+import android.util.Log;
 
 import com.example.cameratranslator.callback.StringCallback;
 import com.example.cameratranslator.callback.VoidCallback;
@@ -51,7 +52,7 @@ public class BitmapUtils {
             Cursor cursor;
             int columnIndexData;
             String absolutePathOfImage;
-            String[] projection = {MediaStore.MediaColumns.DATA, MediaStore.Images.Media.BUCKET_DISPLAY_NAME};
+            String[] projection = {MediaStore.MediaColumns.DATA};
 
             cursor = application.getContentResolver().query(uri, projection, null, null, null);
 

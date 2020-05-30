@@ -170,10 +170,6 @@ public class ImageDetectionHelper {
             Response response = getLogging().newCall(request).execute();
             String result = response.body().string();
 
-            Log.d("__RESULT__", result);
-
-//            return Collections.emptyList();
-
             JSONObject jsonObject = new JSONObject(result);
             JSONArray jsonObjectLabelAnnotations = jsonObject
                     .getJSONArray("responses")

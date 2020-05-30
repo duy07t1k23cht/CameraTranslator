@@ -49,7 +49,6 @@ public class TextDetectionPresenter extends BasePresenter<TextDetectionContract.
                     mView.displayError(message.toString());
                 },
                 error -> {
-                    Log.d("__RESSULT", "Error: " + error);
                     mView.displayError("Error: " + error);
                 }
         );
