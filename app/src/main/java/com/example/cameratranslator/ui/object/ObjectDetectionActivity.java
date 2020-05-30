@@ -131,12 +131,12 @@ public class ObjectDetectionActivity extends BaseActivity<ObjectDetectionPresent
 
     @Override
     public void showLoading() {
-        layoutLoading.setVisibility(View.VISIBLE);
+        show(layoutLoading);
     }
 
     @Override
     public void dismissLoading() {
-        layoutLoading.setVisibility(View.GONE);
+        dismiss(layoutLoading);
     }
 
     @Override
@@ -200,23 +200,23 @@ public class ObjectDetectionActivity extends BaseActivity<ObjectDetectionPresent
 
     @Override
     public void showLayoutSpeakLoading() {
-        pbLoadingAudio.setVisibility(View.VISIBLE);
-        ivSpeak.setVisibility(View.GONE);
+        show(pbLoadingAudio);
+        dismiss(ivSpeak);
         layoutLoading.setClickable(false);
     }
 
     @Override
     public void showLayoutIsSpeaking() {
-        pbLoadingAudio.setVisibility(View.GONE);
-        ivSpeak.setVisibility(View.VISIBLE);
+        dismiss(pbLoadingAudio);
+        show(ivSpeak);
         ivSpeak.setImageDrawable(getDrawable(R.drawable.ic_stop));
         layoutLoading.setClickable(false);
     }
 
     @Override
     public void refreshLayoutSpeak() {
-        pbLoadingAudio.setVisibility(View.GONE);
-        ivSpeak.setVisibility(View.VISIBLE);
+        dismiss(pbLoadingAudio);
+        show(ivSpeak);
         ivSpeak.setImageDrawable(getDrawable(R.drawable.ic_speak));
         layoutLoading.setClickable(true);
     }
