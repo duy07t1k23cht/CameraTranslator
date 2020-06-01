@@ -18,6 +18,10 @@ public class MainContract {
         void highlightObjectTab();
 
         void pickImage();
+
+        void openSettingDrawer();
+
+        void closeSettingDrawer();
     }
 
     interface Presenter {

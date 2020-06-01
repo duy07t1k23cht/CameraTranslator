@@ -8,7 +8,6 @@ import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.graphics.Typeface;
 import android.net.Uri;
-import android.util.Log;
 import android.util.Size;
 import android.view.Surface;
 import android.view.TextureView;
@@ -27,10 +26,13 @@ import androidx.camera.core.Preview;
 import androidx.camera.core.PreviewConfig;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.example.cameratranslator.R;
 import com.example.cameratranslator.base.BaseActivity;
 import com.example.cameratranslator.navigation.Navigation;
+import com.google.android.material.navigation.NavigationView;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -54,9 +56,13 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
             Manifest.permission.WRITE_EXTERNAL_STORAGE,
     };
 
+    private DrawerLayout drawerLayout;
+    private NavigationView navSetting;
+    private TextView btnLanguage, btnFlashCard, btnHistory;
+
     private TextureView viewFinder;
     private ImageButton btnCapture, btnGallery, btnFlip;
-    private ImageView btnSetting;
+    private ImageView btnMore;
     private TextView tvText, tvObject;
 
     private ExecutorService executor = Executors.newSingleThreadExecutor();
@@ -92,6 +98,12 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        closeSettingDrawer();
+    }
+
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == MainContract.PICK_IMG_REQ) {
@@ -109,9 +121,16 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     }
 
     protected void initViewComponent() {
+        drawerLayout = findViewById(R.id.drawer_layout);
+        navSetting = findViewById(R.id.nav_setting);
+
+        btnHistory = findViewById(R.id.btn_history);
+        btnFlashCard = findViewById(R.id.btn_flash_card);
+        btnLanguage = findViewById(R.id.btn_setting_language);
+
         viewFinder = findViewById(R.id.view_finder);
 
-        btnSetting = findViewById(R.id.btn_setting);
+        btnMore = findViewById(R.id.btn_more);
 
         btnCapture = findViewById(R.id.btn_capture);
         btnFlip = findViewById(R.id.btn_flip);
@@ -125,7 +144,10 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         // Every time the provided texture view changes, recompute layout
         viewFinder.addOnLayoutChangeListener((v, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom) -> updateTransform());
 
-        btnSetting.setOnClickListener(this);
+        btnMore.setOnClickListener(this);
+        btnHistory.setOnClickListener(this);
+        btnFlashCard.setOnClickListener(this);
+        btnLanguage.setOnClickListener(this);
 
         tvText.setOnClickListener(this);
         tvObject.setOnClickListener(this);
@@ -270,6 +292,16 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         );
     }
 
+    @Override
+    public void openSettingDrawer() {
+        drawerLayout.openDrawer(GravityCompat.END);
+    }
+
+    @Override
+    public void closeSettingDrawer() {
+        drawerLayout.closeDrawer(GravityCompat.END);
+    }
+
     /**
      * Process result from permission request dialog box, has the request
      * been granted? If yes, start Camera. Otherwise display a toast
@@ -317,7 +349,15 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.btn_setting:
+            case R.id.btn_more:
+//                Navigation.toSettingActivity(this);
+                if (drawerLayout.isDrawerOpen(GravityCompat.END)) {
+                    closeSettingDrawer();
+                } else {
+                    openSettingDrawer();
+                }
+                break;
+            case R.id.btn_setting_language:
                 Navigation.toSettingActivity(this);
                 break;
             case R.id.tv_text:
