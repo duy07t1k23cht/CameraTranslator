@@ -8,11 +8,11 @@ import java.util.Map;
  */
 public class LanguageUtils {
 
-    private static final String ENGLISH = "English";
+    private static final String ENGLISH = "English (Tiếng Anh)";
     private static final String VIETNAMESE = "Tiếng Việt";
-    private static final String CHINESE_SIMPLIFIED = "中文 (简体)";
-    private static final String JAPANESE = "日本語";
-    private static final String KOREAN = "한국어";
+    private static final String CHINESE_SIMPLIFIED = "中文 (简体) (Tiếng Trung giản thể)";
+    private static final String JAPANESE = "日本語 (Tiếng Nhật)";
+    private static final String KOREAN = "한국어 (Tiếng Hàn)";
 
     public static String[] languages = {ENGLISH, VIETNAMESE, CHINESE_SIMPLIFIED, JAPANESE, KOREAN};
 
