@@ -16,8 +16,11 @@ import com.example.cameratranslator.R;
 import com.example.cameratranslator.base.BaseActivity;
 import com.example.cameratranslator.callback.ItemClickCallback;
 import com.example.cameratranslator.customview.LabelImageView;
+import com.example.cameratranslator.database.flashcard.FlashCard;
+import com.example.cameratranslator.database.flashcard.FlashCardRepository;
 import com.example.cameratranslator.model.LocalizedObjectAnnotation;
 import com.example.cameratranslator.navigation.Navigation;
+import com.example.cameratranslator.utils.BitmapUtils;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 
 import java.util.ArrayList;
@@ -29,7 +32,7 @@ import static com.example.cameratranslator.utils.ViewUtils.*;
 public class ObjectDetectionActivity extends BaseActivity<ObjectDetectionPresenter> implements ObjectDetectionContract.View {
 
     private LabelImageView imageView;
-    private ImageView ivSpeak, ivSetting;
+    private ImageView ivSpeak, ivSetting, ivAddFlashCard;
     private Toolbar toolbar;
     private FrameLayout layoutLoading, btnExpand;
     private LinearLayout bottomSheet;
@@ -119,6 +122,8 @@ public class ObjectDetectionActivity extends BaseActivity<ObjectDetectionPresent
         tvLanguage = findViewById(R.id.tv_language);
         pbLoadingAudio = findViewById(R.id.progress_loading_audio);
         ivSpeak = findViewById(R.id.iv_speak);
+        ivAddFlashCard = findViewById(R.id.iv_add_flash_card);
+        ivAddFlashCard.setOnClickListener(v -> mPresenter.toAddFlashCard(ObjectDetectionActivity.this));
         ivSetting = findViewById(R.id.iv_setting);
         ivSetting.setOnClickListener(v -> Navigation.toSettingActivity(ObjectDetectionActivity.this));
         layoutSpeak = findViewById(R.id.layout_speak);
@@ -173,7 +178,8 @@ public class ObjectDetectionActivity extends BaseActivity<ObjectDetectionPresent
                 itemClickCallback);
         rvObjects.setAdapter(itemObjectAdapter);
 
-        mPresenter.setPosition(0);
+        if (!localizedObjectAnnotations.isEmpty())
+            mPresenter.setPosition(0);
     }
 
     @Override
@@ -234,5 +240,10 @@ public class ObjectDetectionActivity extends BaseActivity<ObjectDetectionPresent
     @Override
     public void displayError(String error) {
         toast(this, error);
+    }
+
+    @Override
+    public void displayError(int stringResID) {
+        toast(this, stringResID);
     }
 }

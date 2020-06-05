@@ -1,4 +1,6 @@
-package com.example.cameratranslator.model;
+package com.example.cameratranslator.database.history;
+
+import com.example.cameratranslator.model.BoundingPoly;
 
 /**
  * Created by Duy M. Nguyen on 6/1/2020.

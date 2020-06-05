@@ -115,6 +115,14 @@ public class BitmapUtils {
                 .isDisposed();
     }
 
+    public static byte[] toByteArray(Bitmap bitmap) {
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+        byte[] byteArray = stream.toByteArray();
+//        bitmap.recycle();
+        return byteArray;
+    }
+
     private static Bitmap rotate(Bitmap bitmap, float degrees) {
         Matrix matrix = new Matrix();
         matrix.postRotate(degrees);

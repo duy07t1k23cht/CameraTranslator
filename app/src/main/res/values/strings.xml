@@ -11,4 +11,9 @@
     <string name="history">Lịch sử</string>
     <string name="flash_card">Flash card</string>
     <string name="language">Ngôn ngữ</string>
+    <string name="new_set_name">Tên của bộ Flash card mới</string>
+    <string name="done">Hoàn tất</string>
+    <string name="cancel">Đóng</string>
+    <string name="add_new_set_successfully">Thêm bộ flashcard mới thành công</string>
+    <string name="this_field_cannot_be_empty">Không được để trống trường này</string>
 </resources>

@@ -83,12 +83,22 @@
                 android:layout_weight="1" />
 
             <ImageView
+                android:id="@+id/iv_add_flash_card"
                 android:layout_width="wrap_content"
-                android:id="@+id/iv_setting"
                 android:layout_height="match_parent"
                 android:background="?attr/selectableItemBackground"
                 android:padding="4dp"
-                android:src="@drawable/ic_settings" />
+                android:src="@drawable/ic_add_fc"
+                android:tint="@color/colorPrimaryDark" />
+
+            <ImageView
+                android:id="@+id/iv_setting"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="?attr/selectableItemBackground"
+                android:padding="4dp"
+                android:src="@drawable/ic_settings"
+                android:tint="@color/colorPrimaryDark" />
 
 
         </LinearLayout>

@@ -18,7 +18,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:targetApi="q">
-        <activity android:name=".ui.history.HistoryActivity"></activity>
+        <activity android:name=".ui.fcset.FCSetActivity"></activity>
+        <activity android:name=".ui.addflashcard.AddFlashCardActivity" />
+        <activity android:name=".ui.history.HistoryActivity" />
         <activity android:name=".ui.setting.SettingActivity" />
         <activity
             android:name=".ui.pickimage.PickImageActivity"

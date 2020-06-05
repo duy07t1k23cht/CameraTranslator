@@ -1,12 +1,16 @@
 package com.example.cameratranslator.ui.object;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.util.Log;
 
+import com.example.cameratranslator.R;
 import com.example.cameratranslator.base.BasePresenter;
 import com.example.cameratranslator.model.LocalizedObjectAnnotation;
+import com.example.cameratranslator.navigation.Navigation;
 import com.example.cameratranslator.utils.BitmapUtils;
 import com.example.cameratranslator.utils.LanguageUtils;
 import com.example.cameratranslator.utils.Preference;
@@ -132,5 +136,15 @@ public class ObjectDetectionPresenter extends BasePresenter<ObjectDetectionContr
                         }
                     });
         }
+    }
+
+    @Override
+    public void toAddFlashCard(Activity activity) {
+        if (imagePath == null || imagePath.isEmpty() || currentPosition < 0 || currentPosition >= localizedObjectAnnotations.size()) {
+            mView.displayError(R.string.something_went_wrong);
+            return;
+        }
+
+        Navigation.toAddFlashCardActivity(activity, imagePath, localizedObjectAnnotations.get(currentPosition), LanguageUtils.languageCode.get(pref.getLanguage()));
     }
 }

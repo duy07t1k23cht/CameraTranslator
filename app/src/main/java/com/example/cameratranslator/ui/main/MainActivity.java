@@ -31,6 +31,8 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.example.cameratranslator.R;
 import com.example.cameratranslator.base.BaseActivity;
+import com.example.cameratranslator.database.flashcard.FlashCard;
+import com.example.cameratranslator.database.flashcard.FlashCardRepository;
 import com.example.cameratranslator.navigation.Navigation;
 import com.google.android.material.navigation.NavigationView;
 
@@ -94,7 +96,6 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         }
 
         mPresenter.changeToObjectMode();
-
     }
 
     @Override
@@ -356,6 +357,9 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
                 } else {
                     openSettingDrawer();
                 }
+                break;
+            case R.id.btn_flash_card:
+                Navigation.toFlashCardSetActivity(this);
                 break;
             case R.id.btn_setting_language:
                 Navigation.toSettingActivity(this);

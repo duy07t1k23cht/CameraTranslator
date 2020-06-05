@@ -1,10 +1,12 @@
 package com.example.cameratranslator.ui.object;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 
 import androidx.annotation.Nullable;
+import androidx.annotation.StringRes;
 
 import com.example.cameratranslator.base.BaseView;
 import com.example.cameratranslator.callback.ListCallback;
@@ -27,6 +29,8 @@ public class ObjectDetectionContract {
         void setImage(Bitmap bitmap);
 
         void displayError(String error);
+
+        void displayError(@StringRes int stringResID);
 
         void localizeObject(List<LocalizedObjectAnnotation> localizedObjectAnnotations);
 
@@ -64,6 +68,8 @@ public class ObjectDetectionContract {
         void setImageFromFile();
 
         void speakText();
+
+        void toAddFlashCard(Activity activity);
     }
 
     interface Interactor {
