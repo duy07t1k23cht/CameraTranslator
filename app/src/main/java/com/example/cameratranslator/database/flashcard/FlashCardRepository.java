@@ -43,7 +43,7 @@ public class FlashCardRepository {
     }
 
     public Observable<List<FlashCard>> getFlashCardByIDs(List<Integer> ids) {
-        return Observable.fromCallable(() -> flashCardDao.getFlashCardsByID());
+        return Observable.fromCallable(() -> flashCardDao.getFlashCardsByID(ids));
     }
 
     public void deleteAll() {

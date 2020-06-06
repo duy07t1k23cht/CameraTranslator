@@ -22,6 +22,6 @@ public interface FlashCardDao {
     @Query("SELECT * FROM flashcard ORDER BY word ASC")
     List<FlashCard> getAllFlashCards();
 
-    @Query("SELECT * FROM flashcard")
-    List<FlashCard> getFlashCardsByID();
+    @Query("SELECT * FROM flashcard WHERE id IN (:ids)")
+    List<FlashCard> getFlashCardsByID(List<Integer> ids);
 }

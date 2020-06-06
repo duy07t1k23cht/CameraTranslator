@@ -16,6 +16,6 @@ public interface SetDetailDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     public void insert(SetDetail setDetails);
 
-    @Query("SELECT * FROM set_details")
-    public List<SetDetail> getAllFlashCard();
+    @Query("SELECT * FROM set_details WHERE setID = :id")
+    public List<SetDetail> getAllFlashCard(String id);
 }

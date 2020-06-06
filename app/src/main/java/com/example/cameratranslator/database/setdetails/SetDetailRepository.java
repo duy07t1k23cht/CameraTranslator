@@ -24,7 +24,7 @@ public class SetDetailRepository {
     }
 
     public Observable<List<SetDetail>> getAllFlashCard(String setID) {
-        return Observable.fromCallable(() -> setDetailDao.getAllFlashCard());
+        return Observable.fromCallable(() -> setDetailDao.getAllFlashCard(setID));
     }
 
     public void insert(int flashCardID, String fcSetID) {
