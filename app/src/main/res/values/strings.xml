@@ -13,7 +13,17 @@
     <string name="language">Ngôn ngữ</string>
     <string name="new_set_name">Tên của bộ Flash card mới</string>
     <string name="done">Hoàn tất</string>
-    <string name="cancel">Đóng</string>
+    <string name="cancel">Hủy</string>
     <string name="add_new_set_successfully">Thêm bộ flashcard mới thành công</string>
     <string name="this_field_cannot_be_empty">Không được để trống trường này</string>
+    <string name="not_learned">Chưa thuộc</string>
+    <string name="next">Sau</string>
+    <string name="prev">Trước</string>
+    <string name="page">%d / %d</string>
+    <string name="no_card_found">Chưa có flashcard nào</string>
+    <string name="add_to_set">Thêm vào bộ</string>
+    <string name="add_flashcard">Thêm flashcard</string>
+    <string name="add">Thêm</string>
+    <string name="select_a_set">Chọn 1 bộ để thêm Flashcard</string>
+    <string name="added_flashcard">Đã thêm flashcard</string>
 </resources>

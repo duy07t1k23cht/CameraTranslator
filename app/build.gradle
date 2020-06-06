@@ -70,4 +70,7 @@ dependencies {
 
     // optional - RxJava support for Room
     implementation "android.arch.persistence.room:rxjava2:$room_version"
+
+    // Flip Flashcard
+    implementation 'com.wajahatkarim3.EasyFlipView:EasyFlipView:2.1.2'
 }

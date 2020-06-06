@@ -123,6 +123,10 @@ public class BitmapUtils {
         return byteArray;
     }
 
+    public static Bitmap fromByteArray(byte[] bytes) {
+        return BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+    }
+
     private static Bitmap rotate(Bitmap bitmap, float degrees) {
         Matrix matrix = new Matrix();
         matrix.postRotate(degrees);

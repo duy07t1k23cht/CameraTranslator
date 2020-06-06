@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:autofit="http://schemas.android.com/tools"
+    android:id="@+id/layout_card_back"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_flashcard"
+    android:gravity="center"
+    android:padding="4dp">
+
+    <ImageView
+        android:id="@+id/btn_speaker_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="4dp"
+        android:background="@android:color/transparent"
+        android:padding="12dp"
+        android:src="@drawable/ic_speak"
+        android:tint="@color/colorWhite" />
+
+    <RelativeLayout
+        android:id="@+id/layout_back"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/btn_is_learned_back"
+        android:layout_below="@id/btn_speaker_back"
+        android:orientation="vertical"
+        android:padding="24dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:orientation="vertical"
+            autofit:ignore="Suspicious0dp">
+
+            <ImageView
+                android:id="@+id/iv_fc_image_back"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <TextView
+                android:id="@+id/tv_word_back"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:gravity="center"
+                android:maxLines="1"
+                android:text="test"
+                android:textColor="#fff"
+                android:textStyle="bold"
+                app:autoSizeMaxTextSize="80sp"
+                app:autoSizeMinTextSize="24sp"
+                app:autoSizeTextType="uniform"
+                autofit:ignore="MissingPrefix" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/btn_is_learned_back"
+        android:layout_width="wrap_content"
+        android:layout_height="36dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="8dp"
+        android:background="@drawable/button_unpress_secondary"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
+        android:text="@string/not_learned"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="13sp" />
+
+</RelativeLayout>

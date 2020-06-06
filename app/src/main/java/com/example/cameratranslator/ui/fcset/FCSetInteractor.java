@@ -36,6 +36,7 @@ public class FCSetInteractor implements FCSetContract.Interactor {
                 .isDisposed();
     }
 
+    @Override
     public void addNewFCSet(String name, VoidCallback onSuccess, VoidCallback onError) {
         try {
             fcSetRepository.insert(new FCSet(name));

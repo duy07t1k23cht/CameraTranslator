@@ -23,12 +23,12 @@ public class SetDetailRepository {
         setDetailDao = database.setDetailDao();
     }
 
-    public Observable<List<SetDetail>> getAllFlashCard(FCSet fcSet) {
-        return Observable.fromCallable(() -> setDetailDao.getAllFlashCard(fcSet.getName()));
+    public Observable<List<SetDetail>> getAllFlashCard(String setID) {
+        return Observable.fromCallable(() -> setDetailDao.getAllFlashCard());
     }
 
-    public void insert(FlashCard flashCard, FCSet fcSet) {
-        setDetailDao.insert(new SetDetail(fcSet.getName(), flashCard.getId()));
+    public void insert(int flashCardID, String fcSetID) {
+        setDetailDao.insert(new SetDetail(fcSetID, flashCardID));
     }
 
     public void insert(SetDetail setDetail) {

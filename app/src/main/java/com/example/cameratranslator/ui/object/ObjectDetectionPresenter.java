@@ -1,14 +1,19 @@
 package com.example.cameratranslator.ui.object;
 
 import android.app.Activity;
+import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.util.Log;
 
 import com.example.cameratranslator.R;
 import com.example.cameratranslator.base.BasePresenter;
+import com.example.cameratranslator.callback.IntCallback;
+import com.example.cameratranslator.callback.VoidCallback;
+import com.example.cameratranslator.database.flashcard.FlashCard;
 import com.example.cameratranslator.model.LocalizedObjectAnnotation;
 import com.example.cameratranslator.navigation.Navigation;
 import com.example.cameratranslator.utils.BitmapUtils;
@@ -25,15 +30,21 @@ import static com.example.cameratranslator.ui.object.ObjectDetectionContract.IMA
  */
 public class ObjectDetectionPresenter extends BasePresenter<ObjectDetectionContract.View> implements ObjectDetectionContract.Presenter {
 
-    private ObjectDetectionInteractor interactor = new ObjectDetectionInteractor();
+    private ObjectDetectionInteractor interactor;
 
     private Preference pref;
 
     private String imagePath = null;
+    private Bitmap bitmap;
     private Context context;
 
     private List<LocalizedObjectAnnotation> localizedObjectAnnotations;
     private int currentPosition = -1;
+
+    @Override
+    public void createInteractor(Application application) {
+        interactor = new ObjectDetectionInteractor(application);
+    }
 
     @Override
     public void getPreference(Context context) {
@@ -55,7 +66,8 @@ public class ObjectDetectionPresenter extends BasePresenter<ObjectDetectionContr
     public void setImageFromFile() {
         mView.clearOldData();
         try {
-            mView.setImage(BitmapUtils.modifyOrientation(imagePath));
+            bitmap = BitmapUtils.modifyOrientation(imagePath);
+            mView.setImage(bitmap);
             mView.showLoading();
         } catch (IOException e) {
             e.printStackTrace();
@@ -136,6 +148,42 @@ public class ObjectDetectionPresenter extends BasePresenter<ObjectDetectionContr
                         }
                     });
         }
+    }
+
+    @Override
+    public void getAllSet() {
+        interactor.getAllFCSets(
+                list -> mView.showDialogAllSet(list),
+                () -> mView.displayError(R.string.something_went_wrong));
+    }
+
+    @Override
+    public void addToExistSet(String setID) {
+        if (bitmap == null) {
+            mView.displayError(R.string.something_went_wrong);
+            return;
+        }
+
+        byte[] bytes = BitmapUtils.toByteArray(bitmap);
+        String word = localizedObjectAnnotations.get(currentPosition).getName();
+        String language = LanguageUtils.languageCode.get(pref.getLanguage());
+
+        interactor.insertNewFlashCard(bitmap, word, language,
+                new IntCallback() {
+                    @Override
+                    public void execute(int fcID) {
+                        interactor.addFlashCardToExistSet(
+                                fcID,
+                                setID,
+                                () -> mView.displayError(R.string.added_flashcard),
+                                () -> mView.displayError(R.string.something_went_wrong));
+                    }
+                }, new VoidCallback() {
+                    @Override
+                    public void execute() {
+
+                    }
+                });
     }
 
     @Override

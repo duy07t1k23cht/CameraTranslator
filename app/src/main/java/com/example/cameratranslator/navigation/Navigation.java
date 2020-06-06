@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 
+import com.example.cameratranslator.database.fcset.FCSet;
 import com.example.cameratranslator.model.LocalizedObjectAnnotation;
 import com.example.cameratranslator.ui.addflashcard.AddFlashCardActivity;
 import com.example.cameratranslator.ui.addflashcard.AddFlashCardContract;
@@ -11,6 +12,8 @@ import com.example.cameratranslator.ui.fcset.FCSetActivity;
 import com.example.cameratranslator.ui.object.ObjectDetectionActivity;
 import com.example.cameratranslator.ui.object.ObjectDetectionContract;
 import com.example.cameratranslator.ui.pickimage.PickImageActivity;
+import com.example.cameratranslator.ui.setdetail.SetDetailActivity;
+import com.example.cameratranslator.ui.setdetail.SetDetailContract;
 import com.example.cameratranslator.ui.setting.SettingActivity;
 import com.example.cameratranslator.ui.text.TextDetectionActivity;
 import com.example.cameratranslator.ui.text.TextDetectionContract;
@@ -73,6 +76,14 @@ public class Navigation {
 
     public static void toFlashCardSetActivity(Activity activity) {
         Intent intent = new Intent(activity, FCSetActivity.class);
+
+        activity.startActivity(intent);
+    }
+
+    public static void toSetDetailActivity(Activity activity, String fcSetName) {
+        Intent intent = new Intent(activity, SetDetailActivity.class);
+
+        intent.putExtra(SetDetailContract.SET_NAME, fcSetName);
 
         activity.startActivity(intent);
     }

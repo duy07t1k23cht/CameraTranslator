@@ -1,10 +1,10 @@
 package com.example.cameratranslator.database.setdetails;
 
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Dao;
 import androidx.room.Entity;
 
-import io.reactivex.annotations.NonNull;
 
 /**
  * Created by Duy M. Nguyen on 6/3/2020.

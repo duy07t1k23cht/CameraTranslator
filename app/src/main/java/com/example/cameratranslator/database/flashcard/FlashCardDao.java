@@ -14,11 +14,14 @@ import java.util.List;
 public interface FlashCardDao {
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    void insert(FlashCard flashCard);
+    long insert(FlashCard flashCard);
 
     @Query("DELETE FROM flashcard")
     void deleteAll();
 
     @Query("SELECT * FROM flashcard ORDER BY word ASC")
     List<FlashCard> getAllFlashCards();
+
+    @Query("SELECT * FROM flashcard")
+    List<FlashCard> getFlashCardsByID();
 }

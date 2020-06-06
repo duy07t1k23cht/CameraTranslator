@@ -14,7 +14,9 @@ import android.widget.EditText;
 
 import com.example.cameratranslator.R;
 import com.example.cameratranslator.base.BaseActivity;
+import com.example.cameratranslator.callback.StringCallback;
 import com.example.cameratranslator.database.fcset.FCSet;
+import com.example.cameratranslator.navigation.Navigation;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
@@ -96,7 +98,10 @@ public class FCSetActivity extends BaseActivity<FCSetPresenter> implements FCSet
 
     @Override
     public void showFCSetsData(List<FCSet> fcSets) {
-        FCSetAdapter adapter = new FCSetAdapter(FCSetActivity.this, fcSets);
+        FCSetAdapter adapter = new FCSetAdapter(
+                FCSetActivity.this,
+                fcSets,
+                fcSetName -> Navigation.toSetDetailActivity(FCSetActivity.this, fcSetName));
         rvFCSets.setAdapter(adapter);
     }
 

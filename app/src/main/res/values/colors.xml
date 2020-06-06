@@ -8,4 +8,15 @@
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorBlack">#000000</color>
     <color name="grayBackground">#F8F8F8</color>
+
+    <color name="flashCard0">#D12828</color>
+    <color name="flashCard1">#3F51B5</color>
+    <color name="flashCard2">#FF5722</color>
+    <color name="flashCard3">#4CAF50</color>
+    <color name="flashCard4">#009688</color>
+    <color name="flashCard5">#FF9800</color>
+    <color name="flashCard6">#2C168F</color>
+    <color name="flashCard7">#9C27B0</color>
+    <color name="flashCard8">#03A9F4</color>
+    <color name="flashCard9">#F44336</color>
 </resources>

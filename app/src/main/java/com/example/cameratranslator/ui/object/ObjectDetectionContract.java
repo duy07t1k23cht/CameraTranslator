@@ -1,6 +1,7 @@
 package com.example.cameratranslator.ui.object;
 
 import android.app.Activity;
+import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -9,8 +10,12 @@ import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 
 import com.example.cameratranslator.base.BaseView;
+import com.example.cameratranslator.callback.IntCallback;
 import com.example.cameratranslator.callback.ListCallback;
 import com.example.cameratranslator.callback.StringCallback;
+import com.example.cameratranslator.callback.VoidCallback;
+import com.example.cameratranslator.database.fcset.FCSet;
+import com.example.cameratranslator.database.flashcard.FlashCard;
 import com.example.cameratranslator.model.LocalizedObjectAnnotation;
 import com.example.cameratranslator.model.Translation;
 
@@ -52,10 +57,14 @@ public class ObjectDetectionContract {
 
         void showLayoutIsSpeaking();
 
+        void showDialogAllSet(List<FCSet> fcSetList);
+
         void refreshLayoutSpeak();
     }
 
     interface Presenter {
+
+        void createInteractor(Application application);
 
         void getPreference(Context context);
 
@@ -69,6 +78,10 @@ public class ObjectDetectionContract {
 
         void speakText();
 
+        void getAllSet();
+
+        void addToExistSet(String setID);
+
         void toAddFlashCard(Activity activity);
     }
 
@@ -78,5 +91,11 @@ public class ObjectDetectionContract {
         void getTranslateData(List<LocalizedObjectAnnotation> localizedObjectAnnotations, String targetLanguageCode, ListCallback<Translation> onPost);
 
         void getAudioData(LocalizedObjectAnnotation objectAnnotation, String targetLanguageCode, StringCallback onPost);
+
+        void getAllFCSets(ListCallback<FCSet> fcSetListCallback, VoidCallback onError);
+
+        void insertNewFlashCard(Bitmap image, String word, String language, IntCallback onSuccess, VoidCallback onError);
+
+        void addFlashCardToExistSet(int flashCardID, String setID, VoidCallback onSuccess, VoidCallback onError);
     }
 }

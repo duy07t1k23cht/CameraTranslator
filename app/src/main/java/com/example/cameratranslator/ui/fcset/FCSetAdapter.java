@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cameratranslator.R;
+import com.example.cameratranslator.callback.StringCallback;
 import com.example.cameratranslator.database.fcset.FCSet;
 
 import java.util.List;
@@ -22,14 +23,16 @@ import static com.example.cameratranslator.utils.ViewUtils.toast;
 /**
  * Created by Duy M. Nguyen on 6/5/2020.
  */
-class FCSetAdapter extends RecyclerView.Adapter<FCSetAdapter.ViewHolder> {
+public class FCSetAdapter extends RecyclerView.Adapter<FCSetAdapter.ViewHolder> {
 
     private Activity activity;
     private List<FCSet> fcSets;
+    private StringCallback fcSetNameClickCallback;
 
-    public FCSetAdapter(Activity activity, List<FCSet> fcSets) {
+    public FCSetAdapter(Activity activity, List<FCSet> fcSets, StringCallback fcSetNameClickCallback) {
         this.activity = activity;
         this.fcSets = fcSets;
+        this.fcSetNameClickCallback = fcSetNameClickCallback;
     }
 
     @NonNull
@@ -43,12 +46,7 @@ class FCSetAdapter extends RecyclerView.Adapter<FCSetAdapter.ViewHolder> {
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.setRandomColor();
         holder.setNameData(fcSets.get(position));
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                toast(activity, fcSets.get(position).getName());
-            }
-        });
+        holder.itemView.setOnClickListener(v -> fcSetNameClickCallback.execute(fcSets.get(position).getName()));
     }
 
     @Override

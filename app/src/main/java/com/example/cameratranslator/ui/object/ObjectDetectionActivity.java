@@ -1,7 +1,9 @@
 package com.example.cameratranslator.ui.object;
 
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -9,6 +11,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -16,15 +19,14 @@ import com.example.cameratranslator.R;
 import com.example.cameratranslator.base.BaseActivity;
 import com.example.cameratranslator.callback.ItemClickCallback;
 import com.example.cameratranslator.customview.LabelImageView;
-import com.example.cameratranslator.database.flashcard.FlashCard;
-import com.example.cameratranslator.database.flashcard.FlashCardRepository;
+import com.example.cameratranslator.database.fcset.FCSet;
 import com.example.cameratranslator.model.LocalizedObjectAnnotation;
 import com.example.cameratranslator.navigation.Navigation;
-import com.example.cameratranslator.utils.BitmapUtils;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import static com.example.cameratranslator.utils.ViewUtils.*;
 
@@ -57,6 +59,8 @@ public class ObjectDetectionActivity extends BaseActivity<ObjectDetectionPresent
 
     @Override
     protected void onCreate() {
+
+        mPresenter.createInteractor(getApplication());
         mPresenter.initDatas(getApplicationContext(), getIntent());
 
         itemClickCallback = position -> {
@@ -123,7 +127,9 @@ public class ObjectDetectionActivity extends BaseActivity<ObjectDetectionPresent
         pbLoadingAudio = findViewById(R.id.progress_loading_audio);
         ivSpeak = findViewById(R.id.iv_speak);
         ivAddFlashCard = findViewById(R.id.iv_add_flash_card);
-        ivAddFlashCard.setOnClickListener(v -> mPresenter.toAddFlashCard(ObjectDetectionActivity.this));
+        ivAddFlashCard.setOnClickListener(v -> mPresenter.getAllSet()
+//                mPresenter.toAddFlashCard(ObjectDetectionActivity.this)
+        );
         ivSetting = findViewById(R.id.iv_setting);
         ivSetting.setOnClickListener(v -> Navigation.toSettingActivity(ObjectDetectionActivity.this));
         layoutSpeak = findViewById(R.id.layout_speak);
@@ -217,6 +223,37 @@ public class ObjectDetectionActivity extends BaseActivity<ObjectDetectionPresent
         show(ivSpeak);
         ivSpeak.setImageDrawable(getDrawable(R.drawable.ic_stop));
         layoutLoading.setClickable(false);
+    }
+
+    @Override
+    public void showDialogAllSet(List<FCSet> fcSetList) {
+        AtomicInteger selectPosition = new AtomicInteger();
+
+        ArrayList<String> allSetNames = new ArrayList<>();
+        for (FCSet fcSet : fcSetList) {
+            allSetNames.add(fcSet.getName());
+        }
+
+        new AlertDialog.Builder(this)
+                .setTitle(R.string.select_a_set)
+                .setSingleChoiceItems(
+                        new ArrayAdapter<>(
+                                getApplicationContext(),
+                                android.R.layout.simple_list_item_single_choice,
+                                allSetNames
+                        ),
+                        selectPosition.get(),
+                        (dialog, position) -> {
+                            selectPosition.set(position);
+                        }
+                )
+                .setPositiveButton(R.string.done, (dialog, which) -> {
+                    mPresenter.addToExistSet(allSetNames.get(selectPosition.get()));
+                    dialog.dismiss();
+                })
+                .setNegativeButton(R.string.cancel, (dialog, which) -> dialog.dismiss())
+                .create()
+                .show();
     }
 
     @Override

@@ -42,12 +42,17 @@ public class FlashCardRepository {
         return Observable.fromCallable(() -> flashCardDao.getAllFlashCards());
     }
 
+    public Observable<List<FlashCard>> getFlashCardByIDs(List<Integer> ids) {
+        return Observable.fromCallable(() -> flashCardDao.getFlashCardsByID());
+    }
+
     public void deleteAll() {
         AppDatabase.databaseWriteExecutor.execute(() -> flashCardDao.deleteAll());
     }
 
-    public void insert(FlashCard flashCard) {
-        AppDatabase.databaseWriteExecutor.execute(() -> flashCardDao.insert(flashCard));
+    public long insert(FlashCard flashCard) {
+        return flashCardDao.insert(flashCard);
+//        AppDatabase.databaseWriteExecutor.execute(() -> flashCardDao.insert(flashCard));
     }
 
 //    private void addFlashCard(FlashCard flashCard) {
