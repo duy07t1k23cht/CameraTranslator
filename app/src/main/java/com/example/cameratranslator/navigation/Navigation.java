@@ -2,9 +2,7 @@ package com.example.cameratranslator.navigation;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Bitmap;
 
-import com.example.cameratranslator.database.fcset.FCSet;
 import com.example.cameratranslator.model.LocalizedObjectAnnotation;
 import com.example.cameratranslator.ui.addflashcard.AddFlashCardActivity;
 import com.example.cameratranslator.ui.addflashcard.AddFlashCardContract;
@@ -18,8 +16,6 @@ import com.example.cameratranslator.ui.setting.SettingActivity;
 import com.example.cameratranslator.ui.text.TextDetectionActivity;
 import com.example.cameratranslator.ui.text.TextDetectionContract;
 import com.google.gson.Gson;
-
-import java.io.ByteArrayOutputStream;
 
 
 /**

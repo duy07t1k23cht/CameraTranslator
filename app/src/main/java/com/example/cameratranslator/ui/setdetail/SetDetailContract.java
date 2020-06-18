@@ -7,6 +7,7 @@ import androidx.annotation.StringRes;
 
 import com.example.cameratranslator.base.BaseView;
 import com.example.cameratranslator.callback.ListCallback;
+import com.example.cameratranslator.callback.StringCallback;
 import com.example.cameratranslator.callback.VoidCallback;
 import com.example.cameratranslator.database.flashcard.FlashCard;
 
@@ -32,6 +33,12 @@ public class SetDetailContract {
         void showCard(FlashCard flashCard, FrontViewMode frontViewMode);
 
         void updatePageNumber(int currentPage, int totalPage);
+
+        void showLayoutSpeakLoading();
+
+        void showLayoutIsSpeaking();
+
+        void refreshLayoutSpeak();
     }
 
     interface Presenter {
@@ -41,6 +48,8 @@ public class SetDetailContract {
         void getIntentData(Intent intent);
 
         void initSetFlashCard();
+
+        void speakWord();
 
         void nextCard();
 
@@ -52,5 +61,7 @@ public class SetDetailContract {
 
     interface Interactor {
         void getListFlashCard(String setID, ListCallback<FlashCard> flashCardListCallback, VoidCallback onError);
+
+        void getAudioData(FlashCard flashCard, StringCallback onPost);
     }
 }

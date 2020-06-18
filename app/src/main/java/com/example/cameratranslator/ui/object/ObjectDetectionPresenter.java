@@ -7,13 +7,11 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
-import android.util.Log;
 
 import com.example.cameratranslator.R;
 import com.example.cameratranslator.base.BasePresenter;
 import com.example.cameratranslator.callback.IntCallback;
 import com.example.cameratranslator.callback.VoidCallback;
-import com.example.cameratranslator.database.flashcard.FlashCard;
 import com.example.cameratranslator.model.LocalizedObjectAnnotation;
 import com.example.cameratranslator.navigation.Navigation;
 import com.example.cameratranslator.utils.BitmapUtils;
@@ -164,26 +162,27 @@ public class ObjectDetectionPresenter extends BasePresenter<ObjectDetectionContr
             return;
         }
 
-        byte[] bytes = BitmapUtils.toByteArray(bitmap);
-        String word = localizedObjectAnnotations.get(currentPosition).getName();
+        LocalizedObjectAnnotation objectAnnotation = localizedObjectAnnotations.get(currentPosition);
+        Bitmap cropedBitmap = BitmapUtils.getCrop(
+                bitmap,
+                objectAnnotation.getBoundingPoly().getNormalizedVertices().get(0).getX(),
+                objectAnnotation.getBoundingPoly().getNormalizedVertices().get(0).getY(),
+                objectAnnotation.getBoundingPoly().getNormalizedVertices().get(2).getX(),
+                objectAnnotation.getBoundingPoly().getNormalizedVertices().get(2).getY());
+
+//        byte[] bytes = BitmapUtils.toByteArray(cropedBitmap);
+        String word = objectAnnotation.getTranslation();
         String language = LanguageUtils.languageCode.get(pref.getLanguage());
 
-        interactor.insertNewFlashCard(bitmap, word, language,
-                new IntCallback() {
-                    @Override
-                    public void execute(int fcID) {
-                        interactor.addFlashCardToExistSet(
-                                fcID,
-                                setID,
-                                () -> mView.displayError(R.string.added_flashcard),
-                                () -> mView.displayError(R.string.something_went_wrong));
-                    }
-                }, new VoidCallback() {
-                    @Override
-                    public void execute() {
-
-                    }
-                });
+        interactor.insertNewFlashCard(cropedBitmap, word, language,
+                fcID -> interactor.addFlashCardToExistSet(
+                        fcID,
+                        setID,
+                        () -> mView.displayError(R.string.added_flashcard),
+                        () -> mView.displayError(R.string.something_went_wrong)
+                ),
+                () -> mView.displayError(R.string.something_went_wrong)
+        );
     }
 
     @Override

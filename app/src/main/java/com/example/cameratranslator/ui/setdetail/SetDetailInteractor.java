@@ -4,12 +4,15 @@ import android.app.Application;
 import android.util.Log;
 
 import com.example.cameratranslator.callback.ListCallback;
+import com.example.cameratranslator.callback.StringCallback;
 import com.example.cameratranslator.callback.VoidCallback;
 import com.example.cameratranslator.database.fcset.FCSetRepository;
 import com.example.cameratranslator.database.flashcard.FlashCard;
 import com.example.cameratranslator.database.flashcard.FlashCardRepository;
 import com.example.cameratranslator.database.setdetails.SetDetail;
 import com.example.cameratranslator.database.setdetails.SetDetailRepository;
+import com.example.cameratranslator.model.LocalizedObjectAnnotation;
+import com.example.cameratranslator.utils.api.TextToSpeechAPIHelper;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -50,9 +53,26 @@ class SetDetailInteractor implements SetDetailContract.Interactor {
                                                 Log.d("__XX__", "Get from " + setID + ": " + list.size());
                                                 flashCardListCallback.execute(list);
                                             },
-                                            throwable -> onError.execute())
+                                            throwable -> {
+                                                Log.d("__XX__", "Error---------" + throwable.getMessage());
+                                                onError.execute();
+                                            })
                                     .isDisposed();
-                        }, throwable -> onError.execute())
+                        }, throwable -> {
+                            Log.d("__XX__", "Error---------" + throwable.getMessage());
+                            onError.execute();
+                        })
+                .isDisposed();
+    }
+
+    @Override
+    public void getAudioData(
+            FlashCard flashCard,
+            StringCallback onPost) {
+        TextToSpeechAPIHelper.getAudio(flashCard.getWord(), flashCard.getLanguage())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(onPost::execute)
                 .isDisposed();
     }
 }

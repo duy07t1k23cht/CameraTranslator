@@ -1,5 +1,6 @@
 package com.example.cameratranslator.model;
 
+import com.example.cameratranslator.model.BoundingPoly;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 

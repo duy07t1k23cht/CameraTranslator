@@ -1,5 +1,7 @@
 package com.example.cameratranslator.utils;
 
+import com.example.cameratranslator.callback.StringCallback;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -25,4 +27,13 @@ public class LanguageUtils {
             put(KOREAN, "ko");
         }
     };
+
+    public static String getLanguageByCode(String code) {
+        for (String language : languageCode.keySet()) {
+            if (code.equals(languageCode.get(language))) {
+                return language;
+            }
+        }
+        return ENGLISH;
+    }
 }

@@ -37,7 +37,7 @@ public class AddFlashCardActivity extends BaseActivity<AddFlashCardPresenter> im
     private void initViewComponents() {
 
         // Vanish some unnecessary views
-        dismiss(findViewById(R.id.btn_speaker_front));
+        dismiss(findViewById(R.id.layout_speak_front));
         dismiss(findViewById(R.id.btn_is_learned_front));
 
         toolbar = findViewById(R.id.myToolbar);

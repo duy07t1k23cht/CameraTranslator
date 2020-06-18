@@ -2,7 +2,6 @@ package com.example.cameratranslator.ui.text;
 
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 
 import com.example.cameratranslator.base.BasePresenter;
 import com.example.cameratranslator.model.TextAnnotations;

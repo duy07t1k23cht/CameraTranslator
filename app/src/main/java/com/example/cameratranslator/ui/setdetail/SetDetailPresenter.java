@@ -2,14 +2,20 @@ package com.example.cameratranslator.ui.setdetail;
 
 import android.app.Application;
 import android.content.Intent;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
 
 import com.example.cameratranslator.R;
 import com.example.cameratranslator.base.BasePresenter;
 import com.example.cameratranslator.callback.ListCallback;
+import com.example.cameratranslator.callback.StringCallback;
 import com.example.cameratranslator.callback.VoidCallback;
 import com.example.cameratranslator.database.flashcard.FlashCard;
+import com.example.cameratranslator.model.LocalizedObjectAnnotation;
 import com.example.cameratranslator.ui.fcset.FCSetInteractor;
+import com.example.cameratranslator.utils.LanguageUtils;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -49,8 +55,44 @@ public class SetDetailPresenter extends BasePresenter<SetDetailContract.View> im
                         setCurrentCard(0);
                     }
                 },
-                () -> mView.displayError("Fuck here")
+                () -> mView.displayError(R.string.something_went_wrong)
         );
+    }
+
+    @Override
+    public void speakWord() {
+        FlashCard flashCard = flashCardList.get(currentPosition);
+        MediaPlayer mediaPlayer = new MediaPlayer();
+        if (mediaPlayer.isPlaying()) {
+            mediaPlayer.stop();
+        } else {
+            mediaPlayer.reset();
+            mView.showLayoutSpeakLoading();
+            interactor.getAudioData(
+                    flashCard,
+                    string -> {
+
+                        String audioUrl = "data:audio/mp3;base64," + string;
+
+                        try {
+                            mediaPlayer.setDataSource(audioUrl);
+                            mediaPlayer.prepareAsync();
+                            mediaPlayer.setOnPreparedListener(mp -> {
+                                mView.showLayoutIsSpeaking();
+                                mp.start();
+                            });
+                            mediaPlayer.setOnCompletionListener(mp -> {
+                                mView.refreshLayoutSpeak();
+                                mp.stop();
+                                mp.release();
+                            });
+                            mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+                        } catch (IOException e) {
+                            mView.refreshLayoutSpeak();
+                            e.printStackTrace();
+                        }
+                    });
+        }
     }
 
     @Override

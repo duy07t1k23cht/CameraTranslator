@@ -2,6 +2,7 @@ package com.example.cameratranslator.utils.api;
 
 import com.example.cameratranslator.model.LocalizedObjectAnnotation;
 import com.example.cameratranslator.model.Translation;
+import com.example.cameratranslator.utils.LanguageUtils;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -22,6 +23,8 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 import okhttp3.logging.HttpLoggingInterceptor;
 
+import static com.example.cameratranslator.utils.LanguageUtils.languages;
+
 /**
  * Created by Duy M. Nguyen on 5/20/2020.
  */
@@ -33,15 +36,15 @@ public class TranslationAPIHelper {
     public static Single<List<Translation>> translate(
             List<LocalizedObjectAnnotation> localizedObjectAnnotations,
             String targetLanguageCode) {
-        return Single.fromCallable(() -> {
-            return getTranslationData(localizedObjectAnnotations, targetLanguageCode);
-        });
+        return Single.fromCallable(() -> getTranslationData(localizedObjectAnnotations, targetLanguageCode));
     }
 
     private static List<Translation> getTranslationData(
             List<LocalizedObjectAnnotation> localizedObjectAnnotations,
             String targetLanguageCode
     ) {
+        if (targetLanguageCode == null)
+            targetLanguageCode = LanguageUtils.languageCode.get(languages[0]);
         try {
             FormBody.Builder builder = new FormBody.Builder()
                     .add("key", API_KEY)

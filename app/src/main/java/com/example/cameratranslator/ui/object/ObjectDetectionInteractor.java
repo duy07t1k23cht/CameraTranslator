@@ -13,7 +13,6 @@ import com.example.cameratranslator.database.fcset.FCSet;
 import com.example.cameratranslator.database.fcset.FCSetRepository;
 import com.example.cameratranslator.database.flashcard.FlashCard;
 import com.example.cameratranslator.database.flashcard.FlashCardRepository;
-import com.example.cameratranslator.database.setdetails.SetDetail;
 import com.example.cameratranslator.database.setdetails.SetDetailRepository;
 import com.example.cameratranslator.model.LocalizedObjectAnnotation;
 import com.example.cameratranslator.model.Translation;

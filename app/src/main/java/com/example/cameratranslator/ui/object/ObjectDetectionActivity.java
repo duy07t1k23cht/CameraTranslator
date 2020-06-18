@@ -1,6 +1,5 @@
 package com.example.cameratranslator.ui.object;
 
-import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.view.View;
 import android.widget.ArrayAdapter;

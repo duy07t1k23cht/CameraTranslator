@@ -9,24 +9,50 @@
     android:gravity="center"
     android:padding="4dp">
 
-    <ImageView
-        android:id="@+id/btn_speaker_back"
+    <LinearLayout
+        android:id="@+id/layout_speak_back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
+        android:layout_gravity="center_vertical"
         android:layout_margin="4dp"
-        android:background="@android:color/transparent"
-        android:padding="12dp"
-        android:src="@drawable/ic_speak"
-        android:tint="@color/colorWhite" />
+        android:background="?attr/selectableItemBackground"
+        android:orientation="horizontal"
+        android:padding="8dp">
+
+        <ProgressBar
+            android:id="@+id/progress_loading_audio_back"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_gravity="center_vertical"
+            android:indeterminateTint="@color/colorError"
+            android:padding="4dp"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/iv_speak_back"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:padding="4dp"
+            android:src="@drawable/ic_speak"
+            android:tint="@color/colorWhite" />
+
+        <TextView
+            android:id="@+id/tv_language_back"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="8dp"
+            android:gravity="center_vertical"
+            android:textColor="@color/colorWhite"
+            android:textSize="16sp" />
+    </LinearLayout>
 
     <RelativeLayout
         android:id="@+id/layout_back"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/btn_is_learned_back"
-        android:layout_below="@id/btn_speaker_back"
+        android:layout_below="@id/layout_speak_back"
         android:orientation="vertical"
         android:padding="24dp">
 

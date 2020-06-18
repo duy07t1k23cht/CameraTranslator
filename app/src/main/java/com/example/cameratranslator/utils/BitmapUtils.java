@@ -65,7 +65,10 @@ public class BitmapUtils {
             listImages.sort((path1, path2) -> {
                 File file1 = new File(path1);
                 File file2 = new File(path2);
-                return (int) (file2.lastModified() - file1.lastModified());
+                long k = file2.lastModified() - file1.lastModified();
+                if (k > 0) return 1;
+                else if (k < 0) return -1;
+                else return 0;
             });
         } catch (NullPointerException ex) {
             ex.printStackTrace();
@@ -125,6 +128,23 @@ public class BitmapUtils {
 
     public static Bitmap fromByteArray(byte[] bytes) {
         return BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+    }
+
+    public static Bitmap getCrop(Bitmap bitmap, float startX, float startY, float endX, float endY) {
+        float bitmapWidth = bitmap.getWidth();
+        float bitmapHeight = bitmap.getHeight();
+
+        int xTopLeft = bitmapWidth * startX - 4 < 0 ? 0 : (int) (bitmapWidth * startX);
+        int yTopLeft = bitmapHeight * startY - 4 < 0 ? 0 : (int) (bitmapHeight * startY);
+        int xBotRight = (endX - startX) * bitmapWidth + 4 > bitmapWidth ? (int) bitmapWidth : (int) ((endX - startX) * bitmapWidth);
+        int yBotRight = (endY - startY) * bitmapHeight + 4 > bitmapHeight ? (int) bitmapHeight : (int) ((endY - startY) * bitmapHeight);
+
+        return Bitmap.createBitmap(
+                bitmap,
+                (int) (bitmapWidth * startX),
+                (int) (bitmapHeight * startY),
+                (int) ((endX - startX) * bitmapWidth),
+                (int) ((endY - startY) * bitmapHeight));
     }
 
     private static Bitmap rotate(Bitmap bitmap, float degrees) {

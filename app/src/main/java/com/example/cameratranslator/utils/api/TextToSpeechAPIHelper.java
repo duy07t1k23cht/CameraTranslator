@@ -1,5 +1,6 @@
 package com.example.cameratranslator.utils.api;
 
+import com.example.cameratranslator.database.flashcard.FlashCard;
 import com.example.cameratranslator.model.LocalizedObjectAnnotation;
 
 import org.json.JSONException;
@@ -23,6 +24,10 @@ public class TextToSpeechAPIHelper {
     private final static String API_KEY = "AIzaSyBFx7FJJM7Jo9Bzv2qH7ZX1_013NeGWPRQ";
     private final static String URL_REQUEST = "https://texttospeech.googleapis.com/v1/text:synthesize?key=" + API_KEY;
 
+    public static Single<String> getAudio(String text, String languageCode) {
+        return Single.fromCallable(() -> getAudioData(text, languageCode));
+    }
+
     public static Single<String> getAudio(LocalizedObjectAnnotation localizedObjectAnnotation, String languageCode) {
         return Single.fromCallable(() -> {
             if (localizedObjectAnnotation.getAudioContent() == null ||
@@ -32,6 +37,18 @@ public class TextToSpeechAPIHelper {
                 return getAudioData(text, languageCode);
             } else {
                 return localizedObjectAnnotation.getAudioContent();
+            }
+        });
+    }
+
+    public static Single<String> getAudio(FlashCard flashCard, String languageCode) {
+        return Single.fromCallable(() -> {
+            if (flashCard.getAudioContent() == null ||
+                    flashCard.getAudioContent().isEmpty()) {
+                String text = flashCard.getWord();
+                return getAudioData(text, languageCode);
+            } else {
+                return flashCard.getAudioContent();
             }
         });
     }
