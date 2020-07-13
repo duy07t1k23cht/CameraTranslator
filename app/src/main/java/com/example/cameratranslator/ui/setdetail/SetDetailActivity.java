@@ -28,7 +28,7 @@ public class SetDetailActivity extends BaseActivity<SetDetailPresenter> implemen
     private LinearLayout btnSpeakBack, btnSpeakFront;
     private ProgressBar pbLoadingAudioBack, pbLoadingAudioFront;
     private TextView tvFCWordBack, tvWordFront, btnIsLearnBack, getBtnIsLearnFront;
-    private TextView tvNext, tvPrev, tvPage, tvLanguageFront, tvLangugeBack;
+    private TextView tvNext, tvPrev, tvPage, tvLanguageFront, tvLangugeBack, tvNoFlashcard, tvError;
     private EasyFlipView flipView;
     private Toolbar toolbar;
 
@@ -60,6 +60,10 @@ public class SetDetailActivity extends BaseActivity<SetDetailPresenter> implemen
 
         // FlipView
         flipView = findViewById(R.id.flipView);
+
+        // Text message
+        tvNoFlashcard = findViewById(R.id.tv_no_flashcard);
+        tvError = findViewById(R.id.tv_error);
 
         // LayoutBack
         ivFCImageBack = findViewById(R.id.iv_fc_image_back);
@@ -105,6 +109,16 @@ public class SetDetailActivity extends BaseActivity<SetDetailPresenter> implemen
     @Override
     public void displayError(int stringResID) {
         toast(this, stringResID);
+    }
+
+    @Override
+    public void showNoCardText() {
+        show(tvNoFlashcard);
+    }
+
+    @Override
+    public void showErrorText() {
+        show(tvError);
     }
 
     @Override
@@ -174,7 +188,6 @@ public class SetDetailActivity extends BaseActivity<SetDetailPresenter> implemen
         ivSpeakFront.setImageDrawable(getDrawable(R.drawable.ic_speak));
         btnSpeakFront.setClickable(true);
     }
-
 
     @Override
     public void updatePageNumber(int currentPage, int totalPage) {

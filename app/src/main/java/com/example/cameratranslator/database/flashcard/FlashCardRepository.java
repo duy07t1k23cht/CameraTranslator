@@ -1,8 +1,11 @@
 package com.example.cameratranslator.database.flashcard;
 
 import android.app.Application;
+import android.graphics.Bitmap;
 
+import com.example.cameratranslator.callback.LongCallback;
 import com.example.cameratranslator.database.AppDatabase;
+import com.example.cameratranslator.utils.BitmapUtils;
 
 import java.util.List;
 
@@ -12,24 +15,6 @@ import io.reactivex.Observable;
  * Created by Duy M. Nguyen on 6/3/2020.
  */
 public class FlashCardRepository {
-
-//    private final static String TABLE_NAME = "flashcard";
-//
-//    private final static String COL_ID = "id";
-//    private final static String COL_IMAGE = "image";
-//    private final static String COL_WORD = "word";
-//    private final static String COL_STATUS = "status";
-//    private final static String COL_AUDIO = "audio";
-//
-//    private AppDatabase appDatabase;
-//
-//    private CompositeDisposable compositeDisposable;
-//
-//    public FlashCardRepository(AppDatabase appDatabase) {
-//        this.appDatabase = appDatabase;
-//
-//        compositeDisposable = new CompositeDisposable();
-//    }
 
     private FlashCardDao flashCardDao;
 
@@ -50,21 +35,20 @@ public class FlashCardRepository {
         AppDatabase.databaseWriteExecutor.execute(() -> flashCardDao.deleteAll());
     }
 
-    public long insert(FlashCard flashCard) {
-        return flashCardDao.insert(flashCard);
-//        AppDatabase.databaseWriteExecutor.execute(() -> flashCardDao.insert(flashCard));
+    public void insert(FlashCard flashCard, LongCallback insertedIDCallback) {
+        AppDatabase.databaseWriteExecutor.execute(() -> insertedIDCallback.execute(flashCardDao.insert(flashCard))
+        );
     }
 
-//    private void addFlashCard(FlashCard flashCard) {
-//        SQLiteDatabase database = appDatabase.getWritableDatabase();
-//        ContentValues contentValues = new ContentValues();
-//
-//        contentValues.put(COL_IMAGE, flashCard.getImage());
-//        contentValues.put(COL_WORD, flashCard.getWord());
-//        contentValues.put(COL_STATUS, flashCard.isLearned() ? 1 : 0);
-//        contentValues.put(COL_AUDIO, flashCard.getAudioContent());
-//
-//        database.insert(TABLE_NAME, null, contentValues);
-//        database.close();
-//    }
+    public void insert(Bitmap image, String word, String language, LongCallback insertedIDCallback) {
+        AppDatabase.databaseWriteExecutor.execute(() -> {
+                    FlashCard flashCard = new FlashCard(
+                            BitmapUtils.toByteArray(image),
+                            word,
+                            language
+                    );
+                    insertedIDCallback.execute(flashCardDao.insert(flashCard));
+                }
+        );
+    }
 }

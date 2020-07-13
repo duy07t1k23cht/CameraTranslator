@@ -50,12 +50,12 @@ public class SetDetailPresenter extends BasePresenter<SetDetailContract.View> im
                 list -> {
                     flashCardList = list;
                     if (list == null || list.isEmpty()) {
-                        mView.displayError(R.string.no_card_found);
+                        mView.showNoCardText();
                     } else {
                         setCurrentCard(0);
                     }
                 },
-                () -> mView.displayError(R.string.something_went_wrong)
+                () -> mView.showErrorText()
         );
     }
 

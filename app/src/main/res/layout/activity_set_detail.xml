@@ -16,6 +16,26 @@
         app:navigationIcon="@drawable/ic_back"
         app:titleTextColor="#fff" />
 
+    <TextView
+        android:id="@+id/tv_no_flashcard"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="@string/no_card_found"
+        android:textColor="@color/colorAccent"
+        android:textSize="24sp"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/tv_error"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="@string/something_went_wrong"
+        android:textColor="@color/colorError"
+        android:textSize="24sp"
+        android:visibility="gone" />
+
     <com.wajahatkarim3.easyflipview.EasyFlipView
         android:id="@+id/flipView"
         android:layout_width="match_parent"

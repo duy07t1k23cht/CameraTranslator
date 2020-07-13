@@ -7,6 +7,7 @@ import android.util.Log;
 
 import com.example.cameratranslator.callback.IntCallback;
 import com.example.cameratranslator.callback.ListCallback;
+import com.example.cameratranslator.callback.LongCallback;
 import com.example.cameratranslator.callback.StringCallback;
 import com.example.cameratranslator.callback.VoidCallback;
 import com.example.cameratranslator.database.fcset.FCSet;
@@ -100,17 +101,15 @@ public class ObjectDetectionInteractor implements ObjectDetectionContract.Intera
     @Override
     public void insertNewFlashCard(Bitmap image, String word, String language, IntCallback onSuccess, VoidCallback onError) {
         try {
-            FlashCard flashCard = new FlashCard(
-                    BitmapUtils.toByteArray(image),
-                    word,
-                    language
-            );
-            long id = flashCardRepository.insert(flashCard);
-            onSuccess.execute((int) id);
+//            FlashCard flashCard = new FlashCard(
+//                    BitmapUtils.toByteArray(image),
+//                    word,
+//                    language
+//            );
+            flashCardRepository.insert(image, word, language, id -> onSuccess.execute((int) id));
         } catch (Exception e) {
             e.printStackTrace();
             onError.execute();
-            return;
         }
     }
 
@@ -121,9 +120,8 @@ public class ObjectDetectionInteractor implements ObjectDetectionContract.Intera
         } catch (Exception e) {
             e.printStackTrace();
             onError.execute();
-            return;
         }
 
-        onSuccess.execute();
+//        onSuccess.execute();
     }
 }

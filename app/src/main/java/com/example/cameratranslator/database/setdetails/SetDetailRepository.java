@@ -28,10 +28,16 @@ public class SetDetailRepository {
     }
 
     public void insert(int flashCardID, String fcSetID) {
-        setDetailDao.insert(new SetDetail(fcSetID, flashCardID));
+        SetDetail setDetail = new SetDetail(fcSetID, flashCardID);
+        AppDatabase.databaseWriteExecutor.execute(() -> setDetailDao.insert(setDetail));
     }
 
     public void insert(SetDetail setDetail) {
-        setDetailDao.insert(setDetail);
+        AppDatabase.databaseWriteExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+                setDetailDao.insert(setDetail);
+            }
+        });
     }
 }

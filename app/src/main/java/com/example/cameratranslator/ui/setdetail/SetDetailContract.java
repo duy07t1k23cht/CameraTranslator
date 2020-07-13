@@ -28,6 +28,10 @@ public class SetDetailContract {
 
         void displayError(@StringRes int stringResID);
 
+        void showNoCardText();
+
+        void showErrorText();
+
         void setToolbarData(String setName);
 
         void showCard(FlashCard flashCard, FrontViewMode frontViewMode);

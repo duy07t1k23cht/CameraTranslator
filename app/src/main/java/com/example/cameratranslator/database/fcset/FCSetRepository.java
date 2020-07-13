@@ -30,7 +30,7 @@ public class FCSetRepository {
     }
 
     public void insert(FCSet fcSet) {
-        fcSetDao.insert(fcSet);
-//        AppDatabase.databaseWriteExecutor.execute(() -> fcSetDao.insert(fcSet));
+//        fcSetDao.insert(fcSet);
+        AppDatabase.databaseWriteExecutor.execute(() -> fcSetDao.insert(fcSet));
     }
 }

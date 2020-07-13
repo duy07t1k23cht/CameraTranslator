@@ -120,7 +120,14 @@ public class BitmapUtils {
 
     public static byte[] toByteArray(Bitmap bitmap) {
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+        Bitmap
+                .createScaledBitmap(
+                        bitmap,
+                        bitmap.getWidth() / 2,
+                        bitmap.getHeight() / 2,
+                        false
+                )
+                .compress(Bitmap.CompressFormat.PNG, 100, stream);
         byte[] byteArray = stream.toByteArray();
 //        bitmap.recycle();
         return byteArray;

@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.util.Log;
 
 import com.example.cameratranslator.R;
 import com.example.cameratranslator.base.BasePresenter;
@@ -175,12 +176,16 @@ public class ObjectDetectionPresenter extends BasePresenter<ObjectDetectionContr
         String language = LanguageUtils.languageCode.get(pref.getLanguage());
 
         interactor.insertNewFlashCard(cropedBitmap, word, language,
-                fcID -> interactor.addFlashCardToExistSet(
-                        fcID,
-                        setID,
-                        () -> mView.displayError(R.string.added_flashcard),
-                        () -> mView.displayError(R.string.something_went_wrong)
-                ),
+                fcID ->
+                        interactor.addFlashCardToExistSet(
+                                fcID,
+                                setID,
+                                () -> mView.displayError(R.string.added_flashcard),
+                                () -> mView.displayError(R.string.something_went_wrong)
+                        )
+//                        mView.displayError("Fuck" + fcID)
+//                        Log.d("__XX__", "Fuck " + fcID)
+                ,
                 () -> mView.displayError(R.string.something_went_wrong)
         );
     }

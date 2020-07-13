@@ -62,9 +62,7 @@ public class ObjectDetectionActivity extends BaseActivity<ObjectDetectionPresent
         mPresenter.createInteractor(getApplication());
         mPresenter.initDatas(getApplicationContext(), getIntent());
 
-        itemClickCallback = position -> {
-            mPresenter.setPosition(position);
-        };
+        itemClickCallback = position -> mPresenter.setPosition(position);
 
         initViewComponents();
     }
